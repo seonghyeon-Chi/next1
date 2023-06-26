@@ -2,12 +2,13 @@ import ItemList from '@/component/ItemList'
 import axios from 'axios'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
-import { Divider, Header } from 'semantic-ui-react'
+import { Divider, Header, Loader } from 'semantic-ui-react'
 
 export default function Home() {
   const [list, setList] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
-  const API_URL = `https://api.odcloud.kr/api/15083033/v1`
+  const API_URL = process.env.NEXT_PUBLIC_API_URL
   let page = '1'
   let perPage = '20'
   const secretKey =
@@ -29,8 +30,8 @@ export default function Home() {
         },
       )
       .then((res: { data: any }) => {
-        console.log(res.data.data)
         setList(res.data.data)
+        setIsLoading(false)
       })
   }
 
@@ -42,17 +43,29 @@ export default function Home() {
     <div>
       <Head>
         <title>HOME | 아무코딩</title>
+        <meta name="description" content="아무 코딩 홈입니다."></meta>
       </Head>
-      <Header as="h3" style={{ paddingTop: '40px' }}>
-        베스트 상품
-      </Header>
-      <Divider />
-      <ItemList list={list.slice(0, 9)} />
-      <Header as="h3" style={{ paddingTop: '40px' }}>
-        신상품
-      </Header>
-      <Divider />
-      <ItemList list={list.slice(9)} />
+      {isLoading && (
+        <div style={{ padding: '300px 0' }}>
+          <Loader inline="centered" active>
+            Loading
+          </Loader>
+        </div>
+      )}
+      {!isLoading && (
+        <>
+          <Header as="h3" style={{ paddingTop: '40px' }}>
+            베스트 상품
+          </Header>
+          <Divider />
+          <ItemList list={list.slice(0, 9)} />
+          <Header as="h3" style={{ paddingTop: '40px' }}>
+            신상품
+          </Header>
+          <Divider />
+          <ItemList list={list.slice(9)} />
+        </>
+      )}
     </div>
   )
 }
