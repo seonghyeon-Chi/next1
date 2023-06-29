@@ -13,12 +13,12 @@ interface ItemListProp {
 }
 
 interface ListProp {
-  업종소분류: string
-  건수: number
-  광역시도: string
-  시군구: string
-  업종대분류: string
-  업종중분류: string
+  '과밀지수(밀집도)': string
+  관리년월: string
+  대분류명: string
+  상권명칭: string
+  상권번호: number
+  중분류명: string
 }
 
 interface ListProps extends Array<ListProp> {}
@@ -30,8 +30,8 @@ const Post = ({ item, name }: ItemListProp) => {
       {item && (
         <>
           <Head>
-            <title>{item[0].업종대분류}</title>
-            <meta name="description" content={item[0].광역시도}></meta>
+            <title>{item[0].상권명칭}</title>
+            <meta name="description" content={item[0].관리년월}></meta>
           </Head>
           {name} 환경 입니다.
           <Item item={item} />
@@ -46,13 +46,13 @@ export default Post
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id
   // console.log(context.params)
-  const API_URL = `https://api.odcloud.kr/api/15083033/v1`
+  const API_URL = process.env.apiUrl
   let page = String(Number(id) + 1)
   let perPage = String(Number(id) + 1)
   const secretKey =
-    'OMjMrMCTtKkYz%2B383itvlepuwKl9QG86%2BQNmOiEAfuh%2F7srIqe%2Bfgan9tpvQvY%2BlW0jSyNRSi6DwfZzxE0qnJw%3D%3D'
+    'OMjMrMCTtKkYz+383itvlepuwKl9QG86+QNmOiEAfuh/7srIqe+fgan9tpvQvY+lW0jSyNRSi6DwfZzxE0qnJw=='
   const res = await axios.get(
-    `${API_URL}/uddi:324125cb-6185-41a8-9480-8be3a8e4a717?serviceKey=${secretKey}`,
+    `${API_URL}/uddi:bb89aa82-09a4-4d4d-91d9-9d6681bb09a7`,
     {
       params: {
         page: page,

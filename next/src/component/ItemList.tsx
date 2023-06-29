@@ -7,12 +7,12 @@ interface ItemListProp {
 }
 
 interface ListProp {
-  업종소분류: string
-  건수: number
-  광역시도: string
-  시군구: string
-  업종대분류: string
-  업종중분류: string
+  '과밀지수(밀집도)': string
+  관리년월: string
+  대분류명: string
+  상권명칭: string
+  상권번호: number
+  중분류명: string
 }
 
 interface ListProps extends Array<ListProp> {}
@@ -26,13 +26,11 @@ export default function ItemList({ list }: ItemListProp) {
             <Grid.Column key={idx}>
               <Link href={`/view/[id]`} as={`/view/${idx}`}>
                 <div className={styles.wrap}>
-                  <strong className={styles.tit_item}>{item.업종대분류}</strong>
+                  <strong className={styles.tit_item}>{item.상권명칭}</strong>
                   <span className={styles.txt_info}>
-                    {item.광역시도} {item.시군구}
+                    {item.대분류명} {item.중분류명}
                   </span>
-                  <strong className={styles.num_price}>
-                    {item.업종소분류}
-                  </strong>
+                  <strong className={styles.num_price}>{item.관리년월}</strong>
                 </div>
               </Link>
             </Grid.Column>

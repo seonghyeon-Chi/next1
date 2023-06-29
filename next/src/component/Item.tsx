@@ -6,12 +6,12 @@ interface ItemProps {
 }
 
 interface ListProp {
-  업종소분류: string
-  건수: number
-  광역시도: string
-  시군구: string
-  업종대분류: string
-  업종중분류: string
+  '과밀지수(밀집도)': string
+  관리년월: string
+  대분류명: string
+  상권명칭: string
+  상권번호: number
+  중분류명: string
 }
 
 interface ListProps extends Array<ListProp> {}
@@ -22,12 +22,12 @@ const Item = ({ item }: ItemProps) => {
       {item.map((i, idx) => (
         <React.Fragment key={idx}>
           <div>
-            <strong>{i.업종소분류}</strong>
-            <strong>{i.업종대분류}</strong>
+            <strong>{i.대분류명}</strong>
+            <strong>{i.중분류명}</strong>
           </div>
           <Button color="orange">구매하기</Button>
           <div>
-            <p>{i.업종중분류}</p>
+            <p>{i.상권명칭}</p>
           </div>
         </React.Fragment>
       ))}
