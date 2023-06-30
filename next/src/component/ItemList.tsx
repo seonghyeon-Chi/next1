@@ -24,7 +24,7 @@ export default function ItemList({ list }: ItemListProp) {
         <Grid.Row>
           {list.map((item, idx) => (
             <Grid.Column key={idx}>
-              <Link href={`/view/[id]`} as={`/view/${idx}`}>
+              <Link href={`/detail/[id]`} as={`/detail/${idx}`}>
                 <div className={styles.wrap}>
                   <strong className={styles.tit_item}>{item.상권명칭}</strong>
                   <span className={styles.txt_info}>
